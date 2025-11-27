@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nucleus
 
-## Getting Started
+Nucleus is an AI-powered Study OS built with the latest web technologies to help students organize their academic life, prioritize tasks intelligently, and maintain focus.
 
-First, run the development server:
+## 🚀 Tech Stack
+
+*   **Framework:** [Next.js 16+](https://nextjs.org/) (App Router, Turbopack)
+*   **Language:** [TypeScript](https://www.typescriptlang.org/)
+*   **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
+*   **UI Components:** [shadcn/ui](https://ui.shadcn.com/)
+*   **Database:** [PostgreSQL](https://www.postgresql.org/) (via [Neon](https://neon.tech/))
+*   **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
+*   **Authentication:** [Better Auth](https://better-auth.com/)
+*   **Emails:** [Resend](https://resend.com/)
+
+## ✨ Features
+
+*   **Smart Prioritization:** Tasks are automatically scored based on urgency (due date), effort (estimated minutes), and your energy level.
+*   **Pomodoro Focus Timer:** Integrated timer with customizable durations, progress rings, and sound effects (Web Audio API).
+*   **Magic Link Auth:** Passwordless login via email or Google OAuth.
+*   **Daily Timeline:** Visual horizontal schedule of your planned focus blocks.
+*   **Analytics:** Track your focus streak, total study hours, and subject breakdown.
+*   **PDF Export:** Download your daily plan as a beautifully formatted PDF.
+*   **Dark Mode:** Fully supported with system sync.
+
+## 🛠️ Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/nucleus.git
+cd nucleus
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+# Database (Neon Postgres)
+DATABASE_URL="postgresql://user:password@host:port/database?sslmode=require"
+
+# Authentication (Better Auth)
+BETTER_AUTH_SECRET="your-generated-secret" # Generate with: openssl rand -base64 32
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+# Email (Resend)
+RESEND_API_KEY="re_123..."
+
+# OAuth (Google)
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+```
+
+### 4. Initialize Database
+
+Push the schema to your Neon database:
+
+```bash
+npx drizzle-kit push
+```
+
+*Note: If this is your first time, this will create the `user`, `session`, `account`, `verification`, `tasks`, and `user_settings` tables.*
+
+### 5. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*   `app/`: Next.js App Router pages and layouts.
+    *   `api/`: API routes (auth handler).
+    *   `dashboard/`: Protected application routes (Tasks, Analytics, Settings).
+*   `components/`: Reusable UI components (Timer, Charts, PDF).
+    *   `ui/`: shadcn/ui primitives.
+*   `db/`: Drizzle ORM schema and connection setup.
+*   `lib/`: Utility functions (auth config, priority logic).
+*   `hooks/`: Custom React hooks (audio, etc).
+*   `proxy.ts`: Next.js Middleware (renamed from middleware.ts in Next.js 16).
 
-## Learn More
+## 🤝 Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open source and available under the [MIT License](LICENSE).
