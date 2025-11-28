@@ -65,7 +65,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { useForm } from "react-hook-form";
+import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { createTask, deleteTask, updateTaskStatus } from "@/app/actions/tasks";
@@ -81,6 +81,7 @@ export type Task = {
   priorityScore: number | null;
   status: string;
   createdAt: Date;
+  updatedAt: Date;
 };
 
 // -- Schema --
@@ -88,9 +89,19 @@ const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().optional(),
   dueDate: z.date().optional(),
-  estimatedMinutes: z.string().transform((v) => (v ? parseInt(v) : undefined)).optional(),
+  estimatedMinutes: z
+    .union([z.string(), z.number()])
+    .optional()
+    .transform((val) => {
+      if (val === "" || val === undefined) return undefined;
+      const n = Number(val);
+      return isNaN(n) ? undefined : n;
+    })
+    .refine((val) => val === undefined || val >= 0, {
+      message: "Must be positive",
+    }),
   subject: z.string().optional(),
-  status: z.enum(["todo", "in_progress", "done"]).default("todo"),
+  status: z.enum(["todo", "in_progress", "done"]),
 });
 
 // -- Columns --
@@ -256,7 +267,7 @@ export function TasksTable({ data }: { data: Task[] }) {
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as Resolver<z.infer<typeof formSchema>>,
     defaultValues: {
       title: "",
       description: "",
