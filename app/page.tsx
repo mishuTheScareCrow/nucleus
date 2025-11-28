@@ -4,8 +4,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Brain, Clock, Sparkles, Layout, Lock, ArrowRight } from "lucide-react";
+import { Brain, Clock, Sparkles, Layout, Lock, ArrowRight, Github, Twitter, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
+import { TrustedBy } from "@/components/landing/trusted-by";
+import { HowItWorks } from "@/components/landing/how-it-works";
+import { Testimonials } from "@/components/landing/testimonials";
 
 export default function Home() {
   return (
@@ -28,11 +31,11 @@ export default function Home() {
             <Link href="#features" className="hover:text-white transition-colors">
               Features
             </Link>
+            <Link href="#how-it-works" className="hover:text-white transition-colors">
+              How It Works
+            </Link>
             <Link href="#pricing" className="hover:text-white transition-colors">
               Pricing
-            </Link>
-            <Link href="#about" className="hover:text-white transition-colors">
-              About
             </Link>
           </nav>
           <div className="flex items-center gap-4">
@@ -111,35 +114,75 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Screenshot Placeholder - Dark Mode */}
+            {/* Enhanced Dashboard Preview */}
             <motion.div 
                 initial={{ opacity: 0, y: 40, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.4, type: "spring", bounce: 0.2 }}
-                className="mt-16 relative w-full max-w-5xl aspect-[16/9] rounded-2xl border border-white/10 bg-[#0A0A0A] shadow-2xl overflow-hidden group"
+                className="mt-16 relative w-full max-w-5xl aspect-[16/10] rounded-xl border border-white/10 bg-[#0A0A0A] shadow-2xl overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-50 pointer-events-none"></div>
-              <div className="absolute inset-0 flex items-center justify-center text-zinc-700">
-                <div className="flex flex-col items-center gap-4">
-                  <Layout className="size-20 stroke-1" />
-                  <span className="text-lg font-medium text-zinc-600">Dashboard Preview</span>
+              
+              {/* Mock UI Header */}
+              <div className="h-12 border-b border-white/5 flex items-center px-4 gap-2">
+                <div className="flex gap-1.5">
+                    <div className="size-3 rounded-full bg-red-500/20 border border-red-500/50" />
+                    <div className="size-3 rounded-full bg-amber-500/20 border border-amber-500/50" />
+                    <div className="size-3 rounded-full bg-green-500/20 border border-green-500/50" />
+                </div>
+                <div className="ml-4 h-6 w-64 rounded-md bg-white/5" />
+              </div>
+
+              {/* Mock UI Body */}
+              <div className="flex h-[calc(100%-3rem)]">
+                {/* Sidebar */}
+                <div className="w-64 border-r border-white/5 p-4 flex flex-col gap-3 hidden md:flex">
+                    <div className="h-8 w-full rounded-md bg-white/10" />
+                    <div className="h-8 w-full rounded-md bg-white/5" />
+                    <div className="h-8 w-full rounded-md bg-white/5" />
+                    <div className="mt-auto h-12 w-full rounded-md bg-white/5" />
+                </div>
+                
+                {/* Main Content */}
+                <div className="flex-1 p-6 flex flex-col gap-6">
+                    <div className="flex justify-between items-center">
+                        <div className="h-8 w-48 rounded-md bg-white/10" />
+                        <div className="h-8 w-24 rounded-md bg-white/10" />
+                    </div>
+                    
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className="h-32 rounded-xl bg-white/5 border border-white/5" />
+                        <div className="h-32 rounded-xl bg-white/5 border border-white/5" />
+                        <div className="h-32 rounded-xl bg-white/5 border border-white/5" />
+                    </div>
+
+                    <div className="flex-1 rounded-xl bg-white/5 border border-white/5 p-4">
+                         <div className="h-4 w-1/3 rounded bg-white/10 mb-4" />
+                         <div className="space-y-3">
+                            <div className="h-12 w-full rounded-lg bg-white/5 border border-white/5" />
+                            <div className="h-12 w-full rounded-lg bg-white/5 border border-white/5" />
+                            <div className="h-12 w-full rounded-lg bg-white/5 border border-white/5" />
+                         </div>
+                    </div>
                 </div>
               </div>
-              
-              {/* Floating elements */}
+
+              {/* Floating Badge */}
               <motion.div 
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-10 right-10 p-4 rounded-xl bg-[#111] border border-white/5 shadow-xl"
+                className="absolute bottom-10 right-10 p-4 rounded-xl bg-[#111] border border-white/5 shadow-xl z-10"
               >
                  <div className="flex items-center gap-3">
                     <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-                    <span className="text-xs font-medium text-zinc-300">System Online</span>
+                    <span className="text-xs font-medium text-zinc-300">Focus Mode Active</span>
                  </div>
               </motion.div>
             </motion.div>
           </div>
         </section>
+
+        <TrustedBy />
 
         {/* Features Section */}
         <section id="features" className="py-24 relative border-t border-white/5 bg-[#050505]">
@@ -187,11 +230,39 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <div id="how-it-works">
+            <HowItWorks />
+        </div>
+
+        <Testimonials />
+
       </main>
 
       <footer className="py-12 border-t border-white/5 bg-[#030303]">
-        <div className="container mx-auto px-4 md:px-6 text-center text-zinc-600">
-          <p>&copy; {new Date().getFullYear()} Nucleus. All rights reserved.</p>
+        <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="flex items-center gap-2 font-bold text-xl tracking-tighter">
+                    <div className="size-8 bg-white rounded-lg flex items-center justify-center text-black">
+                        <Layout className="size-5" />
+                    </div>
+                    <span>Nucleus</span>
+                </div>
+                <div className="text-zinc-600 text-sm">
+                    &copy; {new Date().getFullYear()} Nucleus. All rights reserved.
+                </div>
+                <div className="flex gap-4">
+                    <Link href="#" className="text-zinc-600 hover:text-white transition-colors">
+                        <Twitter className="size-5" />
+                    </Link>
+                    <Link href="#" className="text-zinc-600 hover:text-white transition-colors">
+                        <Github className="size-5" />
+                    </Link>
+                    <Link href="#" className="text-zinc-600 hover:text-white transition-colors">
+                        <Linkedin className="size-5" />
+                    </Link>
+                </div>
+            </div>
         </div>
       </footer>
     </div>
